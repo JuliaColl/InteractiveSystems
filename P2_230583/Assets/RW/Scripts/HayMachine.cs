@@ -11,11 +11,39 @@ public class HayMachine : MonoBehaviour
     public float shootInterval; //The smallest amount of time between shots
     private float shootTimer; //A timer that to keep track whether the machine can shoot or not
 
+    public Transform modelParent;
+
+    // References to the hay machine model prefabs.
+    public GameObject blueModelPrefab;
+    public GameObject yellowModelPrefab;
+    public GameObject redModelPrefab;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        LoadModel();
     }
+
+    private void LoadModel()
+    {
+        Destroy(modelParent.GetChild(0).gameObject); // Destroy the current model.
+
+        switch (GameSettings.hayMachineColor) // Instantiate a hay machine model prefab based on the chosen color 
+        {
+            case HayMachineColor.Blue:
+                Instantiate(blueModelPrefab, modelParent);
+                break;
+
+            case HayMachineColor.Yellow:
+                Instantiate(yellowModelPrefab, modelParent);
+                break;
+
+            case HayMachineColor.Red:
+                Instantiate(redModelPrefab, modelParent);
+                break;
+        }
+    }
+
 
     // Update is called once per frame
     void Update()
